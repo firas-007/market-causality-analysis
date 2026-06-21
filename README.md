@@ -1,22 +1,19 @@
-# Stock Market Causality Analysis: Influence of CAC40 and S&P500 on the Moroccan MASI Index
+# Market Causality Analysis
 
-## Project Overview
+This project examines relationships between the Moroccan MASI index, CAC40, S&P 500, EUR/MAD, and USD/MAD using financial time-series methods.
 
-This project is an intermediate-to-advanced Python econometrics study of causal links between the Moroccan MASI stock index, the French CAC40 index, the S&P500 index, and two exchange-rate series: EUR/MAD and USD/MAD. The workflow is built for Jupyter Notebook and separates analysis notebooks from reusable Python modules.
+The analysis covers:
 
-The project does not use machine learning, web development, or dashboards. It focuses on financial time-series preprocessing, classical econometric testing, VAR modeling, Granger causality, and robustness discussion.
+- Data cleaning and return calculation
+- Descriptive statistics and outlier detection
+- Stationarity and cointegration tests
+- Vector Autoregression (VAR)
+- Granger causality tests
+- Impulse response functions and forecast error variance decomposition
 
-## Research Question
+## Data
 
-Do international equity markets and exchange-rate movements help explain short-run movements in the Moroccan MASI index, and is there evidence of feedback between MASI and Moroccan exchange-rate variables?
-
-## Article Motivation
-
-The project is inspired by a scientific study that analyzes causal relationships between MASI, CAC40, S&P500, USD/MAD, and EUR/MAD using VAR, Granger causality, and a robust VAR-Gini approach. The article motivation is especially relevant because financial series often contain extreme observations, non-normal returns, and volatility episodes that can affect classical OLS-based VAR estimates.
-
-## Dataset Description
-
-Place the following CSV files in `data/raw/`:
+Place these files in `data/raw/`:
 
 - `MASI.csv`
 - `CAC40.csv`
@@ -24,59 +21,7 @@ Place the following CSV files in `data/raw/`:
 - `EUR_MAD.csv`
 - `USD_MAD.csv`
 
-Each CSV must contain at least a date column and a closing-price column. The loader detects common names:
-
-- Date columns: `Date`, `date`, `DATE`
-- Price columns: `Close`, `close`, `Adj Close`, `Price`, `Dernier`
-
-The merged dataset uses the intersection of dates across all series to keep VAR inputs aligned.
-
-## Methods Used
-
-- Financial time-series preprocessing
-- First differences, simple returns, and log returns
-- Descriptive statistics
-- Jarque-Bera normality test
-- IQR and z-score outlier detection
-- ADF unit-root test
-- KPSS stationarity test
-- Johansen cointegration test
-- Vector Autoregression (VAR)
-- Granger causality testing
-- Impulse response functions
-- Forecast error variance decomposition
-- VAR residual diagnostics and stability checks
-
-## Project Structure
-
-```text
-market-causality-analysis/
-├── data/
-│   ├── raw/
-│   ├── processed/
-│   └── results/
-├── notebooks/
-│   ├── 01_data_preparation.ipynb
-│   ├── 02_descriptive_statistics_outliers.ipynb
-│   ├── 03_stationarity_cointegration.ipynb
-│   └── 04_var_granger_causality.ipynb
-├── src/
-│   ├── config.py
-│   ├── data_loader.py
-│   ├── preprocessing.py
-│   ├── statistics.py
-│   ├── outliers.py
-│   ├── stationarity.py
-│   ├── cointegration.py
-│   ├── var_model.py
-│   ├── diagnostics.py
-│   ├── visualization.py
-│   └── utils.py
-├── figures/
-├── README.md
-├── requirements.txt
-└── .gitignore
-```
+Each file should contain a date column and a closing-price column.
 
 ## Installation
 
@@ -86,52 +31,29 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-On macOS or Linux, activate with:
+On macOS or Linux, activate the environment with:
 
 ```bash
 source .venv/bin/activate
 ```
 
-## How To Run The Notebooks
+## Usage
 
-1. Add the five required CSV files to `data/raw/`.
-2. Start Jupyter from the project root:
+Start Jupyter from the project root:
 
 ```bash
 jupyter notebook
 ```
 
-3. Run the notebooks in order:
+Run the notebooks in order:
 
-- `01_data_preparation.ipynb`
-- `02_descriptive_statistics_outliers.ipynb`
-- `03_stationarity_cointegration.ipynb`
-- `04_var_granger_causality.ipynb`
+1. `01_data_preparation.ipynb`
+2. `02_descriptive_statistics_outliers.ipynb`
+3. `03_stationarity_cointegration.ipynb`
+4. `04_var_granger_causality.ipynb`
 
-## Expected Outputs
+Generated datasets and test results are saved under `data/`, while charts are saved in `figures/`.
 
-Processed datasets are saved in `data/processed/`:
+## Note
 
-- `market_data_clean.csv`
-- `market_data_first_difference.csv`
-- `market_data_returns.csv`
-- `market_data_log_returns.csv`
-
-Model tables and test results are saved in `data/results/`. Figures are saved in `figures/`.
-
-## Limitations
-
-- Results depend on data frequency, sample period, data vendor conventions, and holiday alignment.
-- Classical VAR is estimated using OLS and can be sensitive to outliers.
-- Granger causality identifies predictive content, not structural economic causality.
-- Johansen cointegration conclusions are sensitive to lag order and deterministic-term assumptions.
-- This project discusses VAR-Gini but does not implement the full estimator.
-
-## Future Improvements
-
-- Implement a complete VAR-Gini estimator or another robust multivariate time-series estimator.
-- Add rolling-window Granger causality tests to study time-varying relationships.
-- Compare daily, weekly, and monthly sampling frequencies.
-- Add structural break tests around major market events.
-- Extend diagnostics with ARCH effects and robust covariance estimates.
-
+Granger causality measures predictive relationships and does not prove structural economic causation.
