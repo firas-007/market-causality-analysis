@@ -135,6 +135,3 @@ Model tables and test results are saved in `data/results/`. Figures are saved in
 - Add structural break tests around major market events.
 - Extend diagnostics with ARCH effects and robust covariance estimates.
 
-## CV Description
-
-Built a modular Python/Jupyter econometrics project studying causal relationships between MASI, CAC40, S&P500, EUR/MAD, and USD/MAD. Implemented robust data ingestion, financial preprocessing, normality and outlier analysis, ADF/KPSS stationarity testing, Johansen cointegration, VAR modeling, Granger causality, impulse response functions, variance decomposition, and model diagnostics using pandas, scipy, statsmodels, matplotlib, and seaborn.
